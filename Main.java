@@ -40,41 +40,30 @@ public class Main {
 	}
 	
 	public static String getCurrentIP() throws IOException {
+		String lobbyIP = "80.239.208.193";
+
 		Runtime rt = Runtime.getRuntime();
 		Process pr = rt.exec("netstat -an");
 		BufferedInputStream in = new BufferedInputStream(pr.getInputStream());
 		byte[] contents = new byte[1024];
 
-	    int bytesRead=0;
-	    String strContents = null;
-	   	ArrayList<String> matches = new ArrayList<String>();
-	    
-	    while( (bytesRead = in.read(contents)) != -1){ 
-	        strContents = new String(contents, 0, bytesRead);
-		    
-	        if (strContents.contains(":1119")) {
-	        	//System.out.println(strContents);
-	        	String[] arr = strContents.split("    ");
+		int bytesRead=0;
+		String strContents = null;
+		ArrayList<String> matches = new ArrayList<String>();
 
-	        	for (int i=0; i<arr.length; i++)
-	        		if (arr[i].contains("80.239.") && arr[i].contains(":1119")) 
-	        			matches.add(arr[i]);
-	        }
-	    }
-	    try {
-			if (matches.get(0).equals(matches.get(1)))
-				return matches.get(2).split(":")[0];
-			
-			if (matches.get(0).equals(matches.get(2)))
-				return matches.get(1).split(":")[0];
-			
-			if (matches.get(1).equals(matches.get(2)))
-				return matches.get(0).split(":")[0];
-	    } catch (IndexOutOfBoundsException e) {
-	    	return null;
-	    }
-	    
-	    return null;
+		while( (bytesRead = in.read(contents)) != -1){ 
+			strContents = new String(contents, 0, bytesRead);
+
+			if (strContents.contains(":1119")) {
+				String[] arr = strContents.split("    ");
+
+				for (int i=0; i<arr.length; i++)
+					if (arr[i].contains("80.239.") && arr[i].contains(":1119") && !arr[i].contains(lobbyIP)) 
+						return arr[i];
+			}
+		}
+
+		return null;
 	}
 	private static ArrayList<String> bad = null;
 	private static ArrayList<String> good = null;
