@@ -29,6 +29,7 @@ public class Main {
 	private static String getCurrentIP() throws IOException {
 		String lobbyIP = "80.239.208.193";
 
+		// Run netstat -an 
 		Runtime rt = Runtime.getRuntime();
 		Process pr = rt.exec("netstat -an");
 		BufferedInputStream in = new BufferedInputStream(pr.getInputStream());
@@ -41,12 +42,14 @@ public class Main {
 		while( (bytesRead = in.read(contents)) != -1){ 
 			strContents = new String(contents, 0, bytesRead);
 
+			// .. and "simulate" netstat -an |findstr :1119 
 			if (strContents.contains(":1119")) {
 				String[] arr = strContents.split("    ");
 
+				// returns the D3 IP, excluding lobby IP
 				for (int i=0; i<arr.length; i++)
 					if (arr[i].contains("80.239.") && arr[i].contains(":1119") && !arr[i].contains(lobbyIP)) 
-						return arr[i].split(":")[0];
+						return arr[i].split(":")[0]; //strip :1119 because it's useless
 			}
 		}
 
@@ -54,7 +57,7 @@ public class Main {
 	}
 	private static ArrayList<String> bad = null;
 	private static ArrayList<String> good = null;
-	
+
 	private static ArrayList<String> getBadIPs() {
 		if (bad == null) {
 			bad = new ArrayList<String>();
