@@ -55,6 +55,7 @@ public class Main {
 
 		return null;
 	}
+	
 	private static ArrayList<String> bad = null;
 	private static ArrayList<String> good = null;
 
