@@ -11,35 +11,22 @@ public class Main {
 		}
 	}
 	
-	public static void checkServerRoutine() throws IOException {
+	private static void checkServerRoutine() throws IOException {
 		String currentIP = getCurrentIP();
 		if (currentIP == null) {
 			System.out.print("\rNot in game.                            ");
 			return;	
 		}
-		boolean match = false;
-		
-		for (String s : getBadIPs())
-			if (s.equals(currentIP)) {
-				System.out.print(String.format("\rCurrent IP: %s -- BAD!!!        ", currentIP));
-				match = true; break;
-			}
-			
-		for (String s : getGoodIPs()) {
-			if (match)
-				break;
-			
-			if (s.equals(currentIP)) {
-				System.out.print(String.format("\rCurrent IP: %s -- GOOD!!!        ", currentIP));
-				match = true; break;
-			}
-		}
-		
-		if (!match)
+
+		if (getBadIPs().contains(currentIP))
+			System.out.print(String.format("\rCurrent IP: %s -- BAD!!!        ", currentIP));
+		else if (getGoodIPs().contains(currentIP))
+			System.out.print(String.format("\rCurrent IP: %s -- GOOD!!!        ", currentIP));
+		else
 			System.out.print(String.format("\rCurrent IP: %s -- UNKNOWN!!!        ", currentIP));
 	}
 	
-	public static String getCurrentIP() throws IOException {
+	private static String getCurrentIP() throws IOException {
 		String lobbyIP = "80.239.208.193";
 
 		Runtime rt = Runtime.getRuntime();
@@ -59,7 +46,7 @@ public class Main {
 
 				for (int i=0; i<arr.length; i++)
 					if (arr[i].contains("80.239.") && arr[i].contains(":1119") && !arr[i].contains(lobbyIP)) 
-						return arr[i];
+						return arr[i].split(":")[0];
 			}
 		}
 
@@ -68,7 +55,7 @@ public class Main {
 	private static ArrayList<String> bad = null;
 	private static ArrayList<String> good = null;
 	
-	public static ArrayList<String> getBadIPs() {
+	private static ArrayList<String> getBadIPs() {
 		if (bad == null) {
 			bad = new ArrayList<String>();
 			
@@ -252,7 +239,7 @@ public class Main {
 		return bad;
 	}
 	
-	public static ArrayList<String> getGoodIPs() {
+	private static ArrayList<String> getGoodIPs() {
 
 		if (good == null) {
 			good = new ArrayList<String>();
