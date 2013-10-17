@@ -31,3 +31,9 @@ What does it do?
 * Good server: http://screencast.com/t/Hu87n7pSBawc
 * Bad server: http://screencast.com/t/ifPuzLlJPi6
 * Unknown IP: http://screencast.com/t/UVZDNOmSry
+
+
+Credits
+==
+Credit where credit is due. This is based on the work of the awesome people who created a list of bad and good 
+servers: http://goo.gl/noQAVc
