@@ -20,13 +20,14 @@ public class Main {
 		//Create and set up the window.
 		frame = new JFrame("d3-server-checker");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setAlwaysOnTop(true);
 
 		//Add the ubiquitous "Hello World" label.
 		label = new JLabel("Loaded");
 		frame.getContentPane().add(label);
 
 		//Display the window.
-		frame.pack();
+		frame.setSize(260, 60);
 		frame.setVisible(true);
 	}
 	
