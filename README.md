@@ -35,9 +35,13 @@ What does it do?
 
 Troubleshooting
 =================
-You may want to read http://docs.oracle.com/javase/tutorial/essential/environment/paths.html to understand path variables and how to execute java/javac.
+* You may want to read http://docs.oracle.com/javase/tutorial/essential/environment/paths.html to understand path variables and how to execute java/javac.
+* Your system variables should look like this:
+* https://www.dropbox.com/s/mt0qbo9kga22r5l/Screenshot%202013-10-18%2015.21.55.png
+* https://www.dropbox.com/s/11vukjocjdbt1qa/Screenshot%202013-10-18%2015.22.06.png
+
 
 Credits
-==
+=================
 Credit where credit is due. This is based on the work of the awesome people who created a list of bad and good 
 servers: http://goo.gl/noQAVc
