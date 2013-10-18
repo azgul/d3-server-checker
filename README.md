@@ -33,6 +33,10 @@ What does it do?
 * Unknown IP: http://screencast.com/t/UVZDNOmSry
 
 
+Troubleshooting
+=================
+You may want to read http://docs.oracle.com/javase/tutorial/essential/environment/paths.html to understand path variables and how to execute java/javac.
+
 Credits
 ==
 Credit where credit is due. This is based on the work of the awesome people who created a list of bad and good 
