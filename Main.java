@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
-	public static void main(String[] args) throws IOException, InterruptedException {		
+	public static void main(String[] args) throws IOException, InterruptedException {
 		while(true) {
 			checkServerRoutine();
 			System.out.flush();
@@ -49,7 +49,7 @@ public class Main {
 				// returns the D3 IP, excluding lobby IP
 				for (int i=0; i<arr.length; i++)
 					if (arr[i].contains("80.239.") && arr[i].contains(":1119") && !arr[i].contains(lobbyIP)) 
-						return arr[i].split(":")[0]; //strip :1119 because it's useless
+						return arr[i].split(":")[0].replace(" ", ""); //strip :1119 because it's useless
 			}
 		}
 
