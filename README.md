@@ -14,15 +14,9 @@ Requirements
 
 Usage
 =================
-1) Download "Main.java" (case sensitive) or git clone the repository.
+1) d3-server-checker.jar or git clone the repository.
 
-2) Open command line prompt (cmd) .. find it in start menu or press windows key + r - type "cmd" - press enter
-
-3) Use the cd command to get to the folder where you saved "Main.java"
-
-4) Compile the code with "javac *.java" in cmd
-
-4) Run the code with "java Main" in cmd
+2) Run d3-server-checker.jar or compile and run Main.java with "javac Main.java" -> "java Main"
 
 
 What does it do?
