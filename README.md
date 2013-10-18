@@ -39,7 +39,7 @@ Troubleshooting
 * Your system variables should look more or less like this:
 * https://www.dropbox.com/s/mt0qbo9kga22r5l/Screenshot%202013-10-18%2015.21.55.png
 * https://www.dropbox.com/s/11vukjocjdbt1qa/Screenshot%202013-10-18%2015.22.06.png
-
+* Careful not to delete the current path variables, only add new ones!
 
 Credits
 =================
