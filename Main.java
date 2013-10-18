@@ -1,29 +1,48 @@
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.*;
 
 public class Main {
 	public static void main(String[] args) throws IOException, InterruptedException {
+		createAndShowGUI();
 		while(true) {
 			checkServerRoutine();
 			System.out.flush();
 			Thread.sleep(1000);
 		}
 	}
+
+	private static JFrame frame;
+	private static JLabel label;
+
+	private static void createAndShowGUI() {
+		//Create and set up the window.
+		frame = new JFrame("d3-server-checker");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		//Add the ubiquitous "Hello World" label.
+		label = new JLabel("Loaded");
+		frame.getContentPane().add(label);
+
+		//Display the window.
+		frame.pack();
+		frame.setVisible(true);
+	}
 	
 	private static void checkServerRoutine() throws IOException {
 		String currentIP = getCurrentIP();
 		if (currentIP == null) {
-			System.out.print("\rNot in game.                            ");
+			label.setText("\rNot in game.");
 			return;	
 		}
 
 		if (getBadIPs().contains(currentIP))
-			System.out.print(String.format("\rCurrent IP: %s -- BAD!!!        ", currentIP));
+			label.setText(String.format("\rCurrent IP: %s -- BAD!!!", currentIP));
 		else if (getGoodIPs().contains(currentIP))
-			System.out.print(String.format("\rCurrent IP: %s -- GOOD!!!        ", currentIP));
+			label.setText(String.format("\rCurrent IP: %s -- GOOD!!!", currentIP));
 		else
-			System.out.print(String.format("\rCurrent IP: %s -- UNKNOWN!!!        ", currentIP));
+			label.setText(String.format("\rCurrent IP: %s -- UNKNOWN!!!", currentIP));
 	}
 	
 	private static String getCurrentIP() throws IOException {
