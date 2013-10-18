@@ -48,7 +48,7 @@ public class Main {
 
 				// returns the D3 IP, excluding lobby IP
 				for (int i=0; i<arr.length; i++)
-					if (arr[i].contains("80.239.") && arr[i].contains(":1119") && !arr[i].contains(lobbyIP)) 
+					if (arr[i].contains("80.239.") && arr[i].contains(":1119") && !arr[i].contains(lobbyIP))
 						return arr[i].split(":")[0].replace(" ", ""); //strip :1119 because it's useless
 			}
 		}
@@ -80,6 +80,7 @@ public class Main {
 			bad.add("80.239.209.37");
 			bad.add("80.239.209.38");
 			bad.add("80.239.209.39");
+			bad.add("80.239.209.40");
 			bad.add("80.239.209.41");
 			bad.add("80.239.209.43");
 			bad.add("80.239.209.44");
