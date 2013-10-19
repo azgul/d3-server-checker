@@ -21,10 +21,10 @@ Usage
 
 What does it do?
 =================
-* Not in game: http://screencast.com/t/FF0gMjp5D6A1
-* Good server: http://screencast.com/t/Hu87n7pSBawc
-* Bad server: http://screencast.com/t/ifPuzLlJPi6
-* Unknown IP: http://screencast.com/t/UVZDNOmSry
+* Not in game: https://www.dropbox.com/s/jf8sml7sctrw39y/Screenshot%202013-10-19%2018.39.32.png
+* Good server: https://www.dropbox.com/s/axzmfy868oy04lz/Screenshot%202013-10-19%2018.40.31.png
+* Bad server: https://www.dropbox.com/s/578vr9784co7ny0/Screenshot%202013-10-19%2018.39.54.png
+* Unknown server: https://www.dropbox.com/s/h1e9nnbvbagajoe/Screenshot%202013-10-19%2018.39.44.png
 
 
 Troubleshooting
