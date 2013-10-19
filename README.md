@@ -12,7 +12,7 @@ Workaround for the [lag issue at hand](http://eu.battle.net/d3/en/forum/topic/83
 
 ### Usage
 1. Download [d3-server-checker.jar](https://github.com/azgul/d3-server-checker/raw/master/d3-server-checker.jar) or *git clone* the repository.
-2. Run [d3-server-checker.jar](https://github.com/azgul/d3-server-checker/raw/master/d3-server-checker.jar) or compile and run *ServerChecker.java* with **javac *.java** and **java ServerChecker**
+2. Run [d3-server-checker.jar](https://github.com/azgul/d3-server-checker/raw/master/d3-server-checker.jar) or compile and run **ServerChecker.java** with `javac *.java` and `java ServerChecker`
 3. Sit back, and enjoy the application working it's magic, now playing lag free.
 
 ### What does it do?
