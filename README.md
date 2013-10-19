@@ -14,9 +14,9 @@ Requirements
 
 Usage
 =================
-1) d3-server-checker.jar or git clone the repository.
+1) Download "d3-server-checker.jar" (https://github.com/azgul/d3-server-checker/raw/master/d3-server-checker.jar) or git clone the repository.
 
-2) Run d3-server-checker.jar or compile and run ServerChecker.java with "javac *.java" -> "java ServerChecker"
+2) Run "d3-server-checker.jar" or compile and run ServerChecker.java with "javac *.java" -> "java ServerChecker"
 
 
 What does it do?
