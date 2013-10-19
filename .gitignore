@@ -3,3 +3,8 @@
 # Package Files #
 *.war
 *.ear
+
+# Garbage Files #
+.classpath
+.project
+push.sh
