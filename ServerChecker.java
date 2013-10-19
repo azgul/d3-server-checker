@@ -172,7 +172,7 @@ public class ServerChecker {
 		else if (type == ServerType.BAD)
 			filename = "bad";
 		
-		url = "https://raw.github.com/azgul/d3-server-checker/auto-sync/" + filename;
+		url = "https://raw.github.com/azgul/d3-server-checker/master/" + filename;
 		label.setText(String.format("Downloading %s IPs", filename));
 		sleep(1000);
 		
