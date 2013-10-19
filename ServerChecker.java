@@ -1,8 +1,10 @@
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -10,26 +12,32 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class ServerChecker {
+	private static ServerChecker serverChecker;
 	private static JFrame frame;
 	private static JLabel label;
 	private static HashMap<String, ServerType> servers = null;
+	
+	private ServerChecker() {}
 
-	private enum ServerType {
-		GOOD, BAD, UNKNOWN
-	}
-
-	public static void main(String[] args) throws IOException, InterruptedException {
-		createAndShowGUI();
+	public static void main(String[] args) {
+		serverChecker = new ServerChecker();
 		
+		createAndShowGUI();
 		try {
 			updateIPs();
-		} catch (FileNotFoundException e) {
-			label.setText("Couldn't parse the IP files!");
+		} catch (ParseException e) {
+			return;
 		}
+		
 		while(true) {
-			checkServerRoutine();
+			try {
+				checkServerRoutine();
+			} catch (IOException e) {
+				label.setText("Failed to check server status");
+				e.printStackTrace();
+			}
 			System.out.flush();
-			Thread.sleep(1000);
+			sleep(1000);
 		}
 	}
 
@@ -55,11 +63,11 @@ public class ServerChecker {
 		if (servers.containsKey(currentIP)) {
 			ServerType type = servers.get(currentIP);
 			if (type == ServerType.GOOD)
-				label.setText(String.format("IP: %s -- GOOD! :-)", currentIP));
+				label.setText(String.format("IP: %s - GOOD! :-)", currentIP));
 			else if (type == ServerType.BAD)
-				label.setText(String.format("IP: %s -- BAD! :-(", currentIP));
+				label.setText(String.format("IP: %s - BAD! :-(", currentIP));
 		} else {
-			label.setText(String.format("IP: %s -- UNKNOWN :-/", currentIP));
+			label.setText(String.format("IP: %s - UNKNOWN :-/", currentIP));
 		}
 	}
 	
@@ -82,7 +90,7 @@ public class ServerChecker {
 			if (strContents.contains(":1119")) {
 				String[] arr = strContents.split("    ");
 
-				// returns the D3 IP, excluding lobby IP
+				// return the D3 IP, excluding lobby IP
 				for (int i=0; i<arr.length; i++)
 					if (arr[i].contains("80.239.") && arr[i].contains(":1119") && !arr[i].contains(lobbyIP))
 						return arr[i].split(":")[0].replace(" ", ""); //strip :1119 because it's useless
@@ -92,26 +100,54 @@ public class ServerChecker {
 		return null;
 	}
 
-	private static void updateIPs() throws FileNotFoundException {
+	private static void updateIPs() throws ParseException {
 		if (servers == null) {
 			servers = new HashMap<String, ServerType>();
 			
-			parseFile(ServerType.GOOD);
-			parseFile(ServerType.BAD);
+			try {
+				downloadIPs(ServerType.GOOD);
+				downloadIPs(ServerType.BAD);
+			} catch (DownloadException e) {
+				e.printStackTrace();
+				label.setText(e.getMessage());
+				sleep(5000);
+			}
+			
+			try {
+				parseFile(ServerType.GOOD);
+				parseFile(ServerType.BAD);
+			} catch (ParseException e) {
+				e.printStackTrace();
+				label.setText(e.getMessage());
+				throw e;
+			}
 		}
 	}
 	
-	private static void parseFile(ServerType type) throws FileNotFoundException {
+	private static void parseFile(ServerType type) throws ParseException {
 		File file = null;
+		String filename  = "";
 		
 		if (type == ServerType.GOOD)
-			file = new File("good");
+			filename = "good";
 		else if (type == ServerType.BAD)
-			file = new File("bad");
+			filename = "bad";
 		else
 			return;
 		
-		Scanner input = new Scanner(file);
+
+		file = new File(filename);
+		label.setText(String.format("Parsing %s IPs", filename));
+		
+		sleep(1000);
+		
+		Scanner input;
+		try {
+			input = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			throw serverChecker.new ParseException("File did not exist: " + filename);
+		}
 
 		while(input != null && input.hasNext()) {
 		    String line = input.nextLine();
@@ -120,6 +156,81 @@ public class ServerChecker {
 		    	servers.put(line, type);
 		}
 
-		input.close();
+		if (input != null)
+			input.close();
+	}
+	
+	private static void downloadIPs(ServerType type) throws DownloadException {
+		if (!(type == ServerType.GOOD || type == ServerType.BAD))
+			return; // don't do anything if called with ServerType.UNKNOWN
+		
+		String filename = "";
+		String url = "";
+		
+		if (type == ServerType.GOOD) 
+			filename = "good";
+		else if (type == ServerType.BAD)
+			filename = "bad";
+		
+		url = "https://raw.github.com/azgul/d3-server-checker/auto-sync/" + filename;
+		label.setText(String.format("Downloading %s IPs", filename));
+		sleep(1000);
+		
+		BufferedInputStream in = null;
+		FileOutputStream fout = null;
+		try	{
+			in = new BufferedInputStream(new URL(url).openStream());
+			fout = new FileOutputStream(filename);
+			
+			byte data[] = new byte[1024];
+			int count;
+			while ((count = in.read(data, 0, 1024)) != -1) {
+				fout.write(data, 0, count);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			throw serverChecker.new DownloadException("File not found: "+ filename);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			throw serverChecker.new DownloadException("Could not download: "+ url);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw serverChecker.new DownloadException("IOException when trying to download: "+ url);
+		}
+		
+		finally	{
+			try {
+				if (in != null)
+					in.close();
+				if (fout != null)
+					fout.close();
+			} catch (Exception e) {
+				throw serverChecker.new DownloadException("Failed to finalize download of: " + filename);
+			}
+		}
+	}
+	
+	private class DownloadException extends Exception {
+		DownloadException(String s) {
+			super(s);
+		}
+	}
+	
+	private class ParseException extends Exception {
+		ParseException(String s) {
+			super(s);
+		}
+	}
+	
+	private static void sleep(long l) {
+		try {
+			Thread.sleep(l);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private enum ServerType {
+		GOOD, BAD, UNKNOWN
 	}
 }
