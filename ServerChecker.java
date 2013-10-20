@@ -16,6 +16,7 @@ public class ServerChecker {
 	private static JFrame frame;
 	private static JLabel label;
 	private static HashMap<String, ServerType> servers = null;
+	private static String OS = System.getProperty("os.name").toLowerCase();
 	
 	private ServerChecker() {}
 
@@ -94,6 +95,14 @@ public class ServerChecker {
 				for (int i=0; i<arr.length; i++)
 					if (arr[i].contains("80.239.") && arr[i].contains(":1119") && !arr[i].contains(lobbyIP))
 						return arr[i].split(":")[0].replace(" ", ""); //strip :1119 because it's useless
+			} else if (isMac()) {
+				String[] arr = strContents.split("  ");
+				
+				strContents = strContents.split(".cu.bne")[0].replace("-", ".");
+				// return the D3 IP, excluding lobby IP
+				for (int i=0; i<arr.length; i++)
+					if (arr[i].contains("80.239.") && arr[i].contains(":1119") && !arr[i].contains(lobbyIP))
+						return arr[i].replace(" ", ""); //strip :1119 because it's useless
 			}
 		}
 
@@ -229,6 +238,17 @@ public class ServerChecker {
 			e.printStackTrace();
 		}
 	}
+	
+	private static boolean isWindows() {
+		return (OS.indexOf("win") >= 0);
+ 
+	}
+ 
+	private static boolean isMac() {
+		return (OS.indexOf("mac") >= 0);
+ 
+	}
+ 
 
 	private enum ServerType {
 		GOOD, BAD, UNKNOWN
