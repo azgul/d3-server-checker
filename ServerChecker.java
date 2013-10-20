@@ -18,7 +18,7 @@ public class ServerChecker {
 	private static HashMap<String, ServerType> servers = null;
 	private static String OS = System.getProperty("os.name").toLowerCase();
 	
-	private ServerChecker() {}
+	public ServerChecker() {}
 
 	public static void main(String[] args) {
 		serverChecker = new ServerChecker();
@@ -98,14 +98,10 @@ public class ServerChecker {
 			} else if (isMac()) {
 				// nasty as hell, I know ....
 				String[] arr = strContents.split("  ");
-				String ip = arr[arr.length-1];
-				if (ip.split(" ").length >= 2) {
-					ip = ip.split(" ")[1];
-					ip = ip.replace(".c.bnetg", "");
-					ip = ip.replace(".cu.bnetg", "");
-					ip = ip.replace("-", ".");
-				}
-				return ip;
+				
+				for (int i=0; i<arr.length; i++)
+					if (arr[i].contains("80.239.") && !arr[i].contains(lobbyIP))
+						return arr[i].replace(" ", "").replace(".1119", ""); //strip :1119 because it's useless
 			}
 		}
 
