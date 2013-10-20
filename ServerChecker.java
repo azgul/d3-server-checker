@@ -88,7 +88,7 @@ public class ServerChecker {
 
 			// .. and "simulate" netstat -an |findstr :1119 
 			if (strContents.contains(":1119")) {
-				String[] arr = strContents.split("    ");
+				String[] arr = strContents.split("  ");
 
 				// return the D3 IP, excluding lobby IP
 				for (int i=0; i<arr.length; i++)
