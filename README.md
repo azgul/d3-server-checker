@@ -7,7 +7,7 @@ Workaround for the [lag issue at hand](http://eu.battle.net/d3/en/forum/topic/83
 
 ### Requirements
 
-1. A Windows PC with Diablo 3 installed
+1. A Windows PC with Diablo 3 installed (it *should* work in OSX now)
 2. [Java SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
 
 
