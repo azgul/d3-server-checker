@@ -96,13 +96,14 @@ public class ServerChecker {
 					if (arr[i].contains("80.239.") && arr[i].contains(":1119") && !arr[i].contains(lobbyIP))
 						return arr[i].split(":")[0].replace(" ", ""); //strip :1119 because it's useless
 			} else if (isMac()) {
+				// nasty as hell, I know ....
 				String[] arr = strContents.split("  ");
-				
-				strContents = strContents.split(".cu.bne")[0].replace("-", ".");
-				// return the D3 IP, excluding lobby IP
-				for (int i=0; i<arr.length; i++)
-					if (arr[i].contains("80.239.") && arr[i].contains(":1119") && !arr[i].contains(lobbyIP))
-						return arr[i].replace(" ", ""); //strip :1119 because it's useless
+				String ip = arr[arr.length-1];
+				ip = ip.split(" ")[1];
+				ip = ip.replace(".c.bnetg", "");
+				ip = ip.replace(".cu.bnetg", "");
+				ip = ip.replace("-", ".");
+				return ip;
 			}
 		}
 
