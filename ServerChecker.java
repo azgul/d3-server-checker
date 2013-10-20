@@ -99,10 +99,12 @@ public class ServerChecker {
 				// nasty as hell, I know ....
 				String[] arr = strContents.split("  ");
 				String ip = arr[arr.length-1];
-				ip = ip.split(" ")[1];
-				ip = ip.replace(".c.bnetg", "");
-				ip = ip.replace(".cu.bnetg", "");
-				ip = ip.replace("-", ".");
+				if (ip.length() >= 2) {
+					ip = ip.split(" ")[1];
+					ip = ip.replace(".c.bnetg", "");
+					ip = ip.replace(".cu.bnetg", "");
+					ip = ip.replace("-", ".");
+				}
 				return ip;
 			}
 		}
