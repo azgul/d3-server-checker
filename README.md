@@ -25,6 +25,7 @@ Workaround for the [lag issue at hand](http://eu.battle.net/d3/en/forum/topic/83
   * [Good server](https://www.dropbox.com/s/axzmfy868oy04lz/Screenshot%202013-10-19%2018.40.31.png)
   * [Bad server](https://www.dropbox.com/s/578vr9784co7ny0/Screenshot%202013-10-19%2018.39.54.png)
   * [Unknown server](https://www.dropbox.com/s/h1e9nnbvbagajoe/Screenshot%202013-10-19%2018.39.44.png)
+  * All of these statuses are achieved by calling the command `netstat -an` and simulating `findstr :1119` on the output of netstat.
 
 
 ### Troubleshooting
