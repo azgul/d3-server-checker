@@ -46,6 +46,7 @@ public class ServerChecker {
 		//Create and set up the window.
 		frame = new JFrame("d3-server-checker");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setAlwaysOnTop(true);
 		label = new JLabel("Loaded");
 		frame.getContentPane().add(label);
 
